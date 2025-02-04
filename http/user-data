@@ -1,0 +1,21 @@
+#cloud-config
+autoinstall:
+  version: 1
+  identity:
+    hostname: ubuntu-server
+    username: ubuntu
+    password: "$6$kfiC1PfArpPzGOT7$YIaobSoPf5atwWwhQaeRP.ZlG.LAuKIrZ.9ZwwnuuCVztQv8bcGntmsNgTIGLJ.P.r99I4.GAclmXb6IHvqHJ0"
+  keyboard:
+    layout: us
+  locale: en_US.UTF-8
+  storage:
+    layout:
+      name: lvm
+  ssh:
+    install-server: yes
+  packages:
+    - nano
+  late-commands:
+    - curtin in-target -- apt update && apt upgrade -y
+    - curtin in-target -- systemctl enable ssh
+  reboot: true
